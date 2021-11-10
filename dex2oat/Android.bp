@@ -252,6 +252,11 @@ cc_defaults {
                 profile_file: "art/dex2oat_x86_x86_64.profdata",
             },
         },
+        android_riscv64: {
+            pgo: {
+                profile_file: "art/dex2oat_riscv64_riscv64.profdata",
+            },
+        },
     },
 }
 
