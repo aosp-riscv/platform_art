@@ -300,6 +300,11 @@ cc_defaults {
                 profile_file: "art/art_x86_x86_64.profdata",
             },
         },
+        android_riscv64: {
+            pgo: {
+                profile_file: "art/art_riscv64_riscv64.profdata",
+            },
+        },
     },
 }
 
