@@ -27,6 +27,7 @@ void InstructionSetAbort(InstructionSet isa) {
     case InstructionSet::kArm:
     case InstructionSet::kThumb2:
     case InstructionSet::kArm64:
+    case InstructionSet::kRiscv64:
     case InstructionSet::kX86:
     case InstructionSet::kX86_64:
     case InstructionSet::kNone:
@@ -44,6 +45,8 @@ const char* GetInstructionSetString(InstructionSet isa) {
       return "arm";
     case InstructionSet::kArm64:
       return "arm64";
+    case InstructionSet::kRiscv64:
+      return "riscv64";
     case InstructionSet::kX86:
       return "x86";
     case InstructionSet::kX86_64:
@@ -62,6 +65,8 @@ InstructionSet GetInstructionSetFromString(const char* isa_str) {
     return InstructionSet::kArm;
   } else if (strcmp("arm64", isa_str) == 0) {
     return InstructionSet::kArm64;
+  } else if (strcmp("riscv64", isa_str) == 0) {
+    return InstructionSet::kRiscv64;
   } else if (strcmp("x86", isa_str) == 0) {
     return InstructionSet::kX86;
   } else if (strcmp("x86_64", isa_str) == 0) {
@@ -79,6 +84,8 @@ size_t GetInstructionSetAlignment(InstructionSet isa) {
       return kArmAlignment;
     case InstructionSet::kArm64:
       return kArm64Alignment;
+    case InstructionSet::kRiscv64:
+      return kRiscv64Alignment;
     case InstructionSet::kX86:
       // Fall-through.
     case InstructionSet::kX86_64:
@@ -95,6 +102,7 @@ namespace instruction_set_details {
 
 static_assert(IsAligned<kPageSize>(kArmStackOverflowReservedBytes), "ARM gap not page aligned");
 static_assert(IsAligned<kPageSize>(kArm64StackOverflowReservedBytes), "ARM64 gap not page aligned");
+static_assert(IsAligned<kPageSize>(kRiscv64StackOverflowReservedBytes), "RISCV64 gap not page aligned");
 static_assert(IsAligned<kPageSize>(kX86StackOverflowReservedBytes), "X86 gap not page aligned");
 static_assert(IsAligned<kPageSize>(kX86_64StackOverflowReservedBytes),
               "X86_64 gap not page aligned");
@@ -107,6 +115,7 @@ static_assert(IsAligned<kPageSize>(kX86_64StackOverflowReservedBytes),
 static_assert(ART_FRAME_SIZE_LIMIT < kArmStackOverflowReservedBytes, "Frame size limit too large");
 static_assert(ART_FRAME_SIZE_LIMIT < kArm64StackOverflowReservedBytes,
               "Frame size limit too large");
+static_assert(ART_FRAME_SIZE_LIMIT < kRiscv64StackOverflowReservedBytes, "Frame size limit too large");
 static_assert(ART_FRAME_SIZE_LIMIT < kX86StackOverflowReservedBytes,
               "Frame size limit too large");
 static_assert(ART_FRAME_SIZE_LIMIT < kX86_64StackOverflowReservedBytes,
