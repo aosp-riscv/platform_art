@@ -40,6 +40,7 @@ func globalFlags(ctx android.LoadHookContext) ([]string, []string) {
 	cflags = append(cflags, "-g")
 	cflags = append(cflags, "-fno-omit-frame-pointer")
 
+
 	tlab := false
 
 	gcType := ctx.Config().GetenvWithDefault("ART_DEFAULT_GC_TYPE", "CMS")
